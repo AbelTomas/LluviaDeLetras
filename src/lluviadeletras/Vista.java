@@ -27,6 +27,7 @@ public class Vista extends Frame{
     private Button btnLetra;
     private int pos;
     private Controlador c;
+    private int numLetras;
     
     public Vista(Controlador c){
         this.c=c;
@@ -80,20 +81,19 @@ public class Vista extends Frame{
         this.setMenuBar(mb);
     }
     
-    public void generarLetras(char letra){
-        //System.out.println(letra);
-        pos=(int)(Math.random()*500);
-        letras.add(new Letra(pos,letra));
+    public void generarLetras(){
         
-        btnLetra=new Button(""+letra);
-        btnLetra.setName(letra+"");
-        btnLetra.setBounds(letras.get(letras.size()-1).getX(), 0, 20, 20);
+        letras.add(new Letra(500,500));
+        
+        
+        btnLetra=new Button(""+letras.get(numLetras).getNombre());
+        btnLetra.setBounds(letras.get(numLetras).getX(), 0, 20, 20);
         btnLetra.addActionListener(c);
         this.add(btnLetra);
         botones.add(btnLetra);
         
         this.setVisible(true);
-        
+        numLetras++;
     }
     
     public void mover(){

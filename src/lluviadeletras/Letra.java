@@ -22,6 +22,7 @@ public class Letra {
 
     public Letra(int anchoV, int altoV) {
         this.altoV=altoV;
+        letras=new ArrayList();
         nombre = generarLetra(); //Asignamos la letra a nuestro objeto letra
         x=generarAleatorio(anchoV);
     }

@@ -29,7 +29,7 @@ public class Controlador implements ActionListener{
         timer=new Timer(1000,new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                v.generarLetras(m.generarLetras());
+                v.generarLetras();
             }
         });
         timer.start();
