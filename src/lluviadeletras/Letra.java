@@ -17,12 +17,12 @@ public class Letra {
     private static final int num1 = 65, num2 = 90;  //Numeros de los caracteres de las letras en mayusculas
     private int altoV;
     private int x, y = 0;
-    private char letra;
+    private char nombre;
     private int velocidad = 1;
 
     public Letra(int anchoV, int altoV) {
         this.altoV=altoV;
-        letra = generarLetra(); //Asignamos la letra a nuestro objeto letra
+        nombre = generarLetra(); //Asignamos la letra a nuestro objeto letra
         x=generarAleatorio(anchoV);
     }
 
@@ -80,14 +80,19 @@ public class Letra {
         }
     }
     
-    public char getLetra() {
-        return letra;
+    public char getNombre() {
+        return nombre;
     }
 
     private void cambiarY() {
         this.y+=this.velocidad;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    
     public void setVelocidad(int velocidad) {
         this.velocidad = velocidad;
     }
