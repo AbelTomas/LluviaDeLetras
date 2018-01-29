@@ -84,6 +84,11 @@ public class Letra {
         return nombre;
     }
 
+    public int getY() {
+        return y;
+    }
+    
+
     private void cambiarY() {
         this.y+=this.velocidad;
     }
