@@ -98,7 +98,7 @@ public class Vista extends Frame{
     
     public void mover(){
         for(int i=0;i<botones.size();i++){
-            letras.get(i).setY(5);
+            letras.get(i).mover();
             botones.get(i).setLocation(letras.get(i).getX(),letras.get(i).getY());
         }
         this.setVisible(true);
