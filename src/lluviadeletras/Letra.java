@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Letra {
 
-    private static ArrayList letras;
+    private static final ArrayList letras=new ArrayList();
     private static final int num1 = 65, num2 = 90;  //Numeros de los caracteres de las letras en mayusculas
     private int altoV;
     private int x, y = 0;
@@ -22,7 +22,7 @@ public class Letra {
 
     public Letra(int anchoV, int altoV) {
         this.altoV=altoV;
-        letras=new ArrayList();
+        //letras=new ArrayList();
         nombre = generarLetra(); //Asignamos la letra a nuestro objeto letra
         x=generarAleatorio(anchoV);
     }
@@ -36,6 +36,10 @@ public class Letra {
             c = (char) numAleatorio;
         } while (comprobarRepetida(c)); //Comprobamos si se repite
         letras.add(c);  //Añadimos la letra al array
+        for(int i=0;i<letras.size();i++){
+            System.out.print(letras.get(i));
+        }
+        System.out.println("");
         return c;
     }
 

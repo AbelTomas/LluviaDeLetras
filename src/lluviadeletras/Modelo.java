@@ -22,10 +22,12 @@ public class Modelo {
     public char generarLetras(){
         int i;
         char ale;
+        
         do{
             ale=(char)(int)(Math.random()*(90-65)+65);
             for(i=0;i<numLetras && letrasUsadas.get(i)!=ale;i++);  
         }while(i!=numLetras);
+        
         letrasUsadas.add(ale);
         numLetras++;
         for(int j=0;j<letrasUsadas.size();j++){
