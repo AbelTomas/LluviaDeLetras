@@ -18,7 +18,8 @@ public class Letra {
     private int altoV;
     private int x, y = 0;
     private char nombre;
-    private int velocidad = 1;
+    private int velocidad = 2;
+    private static int ladoLetra=20;
 
     public Letra(int anchoV, int altoV) {
         this.altoV=altoV;
@@ -36,10 +37,6 @@ public class Letra {
             c = (char) numAleatorio;
         } while (comprobarRepetida(c)); //Comprobamos si se repite
         letras.add(c);  //Añadimos la letra al array
-        for(int i=0;i<letras.size();i++){
-            System.out.print(letras.get(i));
-        }
-        System.out.println("");
         return c;
     }
 
@@ -105,6 +102,16 @@ public class Letra {
     
     public void setVelocidad(int velocidad) {
         this.velocidad = velocidad;
+    }
+    
+    public static void eliminarChar(String letra){
+        System.out.println(letra.charAt(0));
+        
+        System.out.println(letras.remove(letra.charAt(0)));
+    }
+
+    public int getLadoLetra() {
+        return ladoLetra;
     }
     
 }

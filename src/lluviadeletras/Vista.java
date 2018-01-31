@@ -7,6 +7,7 @@ package lluviadeletras;
 
 import java.awt.Button;
 import java.awt.CheckboxMenuItem;
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Menu;
 import java.awt.MenuBar;
@@ -25,18 +26,25 @@ public class Vista extends Frame{
     private ArrayList<Button> botones;
     private Timer timer;
     private Button btnLetra;
-    private int pos;
+    private int pos,anchoV=500,altoV=500;
     private Controlador c;
     private int numLetras;
+    private Barra b;
+    
     
     public Vista(Controlador c){
         this.c=c;
+        b=new Barra(anchoV);
+        b.setBackground(Color.red);
+        b.setBounds(b.getX(), b.getY(), b.getAnchoB(), b.getAltoB());
+        this.addKeyListener(b.getControlBarra());
+        this.add(b);
         letras=new ArrayList();
         botones=new ArrayList();
         generarMenu();
         
         this.setLayout(null);
-        this.setBounds(100, 100, 500, 500);
+        this.setBounds(100, 100, anchoV, altoV);
         this.setVisible(true);
     }
     
@@ -87,7 +95,7 @@ public class Vista extends Frame{
         
         
         btnLetra=new Button(""+letras.get(numLetras).getNombre());
-        btnLetra.setBounds(letras.get(numLetras).getX(), 0, 20, 20);
+        btnLetra.setBounds(letras.get(numLetras).getX(), 0, letras.get(numLetras).getLadoLetra(), letras.get(numLetras).getLadoLetra());
         btnLetra.addActionListener(c);
         this.add(btnLetra);
         botones.add(btnLetra);
@@ -97,9 +105,11 @@ public class Vista extends Frame{
     }
     
     public void mover(){
+        comprobarChoque();
         for(int i=0;i<botones.size();i++){
             letras.get(i).mover();
             botones.get(i).setLocation(letras.get(i).getX(),letras.get(i).getY());
+            b.setBounds(b.getX(), b.getY(), b.getAnchoB(), b.getAltoB());
         }
         this.setVisible(true);
     }
@@ -111,8 +121,25 @@ public class Vista extends Frame{
                 letras.remove(i);
                 botones.remove(i);
                 c.letraEliminada(letras.get(i).getNombre());
-                
+                numLetras--;
+                Letra.eliminarChar(e.getActionCommand());
             }
         }
+    }
+    
+    public boolean comprobarChoque(){
+        //for(int i=0;i<letras.size();i++){
+        if(!letras.isEmpty())
+            if(letras.get(0).getY()+letras.get(0).getLadoLetra()>=b.getY()){
+                if((letras.get(0).getX()+letras.get(0).getLadoLetra())>=b.getX() && letras.get(0).getX()<=(b.getX()+b.getAnchoB())){
+                    System.out.println("CHOQUE");
+                    return true;
+                }else{
+                    System.out.println("JUEGO ACABADO");
+                }
+            }
+        //}
+        System.out.println("NO HAY CHOQUE");
+        return false;
     }
 }
