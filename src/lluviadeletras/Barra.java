@@ -14,15 +14,14 @@ import java.awt.Label;
 public class Barra extends Label{
     private int anchoV,altoB,anchoB;
     private int x, y = 450;
-    private Controlador c;
+
     
-    public Barra(int anchoV, Controlador c){
+    public Barra(int anchoV){
         altoB=30;
         anchoB=50;
         this.anchoV=anchoV;
         x=this.anchoV/2-anchoB/2;
-        this.c=c;
-        this.addKeyListener(c);
+
         
     }
 

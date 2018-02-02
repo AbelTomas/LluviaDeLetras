@@ -34,14 +34,14 @@ public class Vista extends Frame{
     
     public Vista(Controlador c){
         this.c=c;
-        b=new Barra(anchoV,c);
+        b=new Barra(anchoV);
         b.setBackground(Color.red);
         b.setBounds(b.getX(), b.getY(), b.getAnchoB(), b.getAltoB());
         this.add(b);
         letras=new ArrayList();
         botones=new ArrayList();
         generarMenu();
-        
+        this.addKeyListener(c);
         this.setLayout(null);
         this.setBounds(100, 100, anchoV, altoV);
         this.setVisible(true);
@@ -93,7 +93,6 @@ public class Vista extends Frame{
         
         btnLetra=new Button(""+letras.get(numLetras).getNombre());
         btnLetra.setBounds(letras.get(numLetras).getX(), 0, letras.get(numLetras).getLadoLetra(), letras.get(numLetras).getLadoLetra());
-        btnLetra.addActionListener(c);
         this.add(btnLetra);
         botones.add(btnLetra);
         
@@ -111,32 +110,33 @@ public class Vista extends Frame{
         this.setVisible(true);
     }
     
-    public void eliminarLetra(ActionEvent e){
+    public void eliminarLetra(char caracter){
+        System.out.println(caracter);
         for(int i=0;i<letras.size();i++){
-            if(e.getActionCommand().equals(String.valueOf(letras.get(i).getNombre()))){
+            //System.out.println(caracter==letras.get(i).getNombre()+caracter+"-"+letras.get(i).getNombre());
+            if(caracter==letras.get(i).getNombre()){
                 this.remove(botones.get(i));
                 letras.remove(i);
                 botones.remove(i);
                 c.letraEliminada(letras.get(i).getNombre());
                 numLetras--;
-                Letra.eliminarChar(e.getActionCommand());
+                Letra.eliminarChar(caracter+"");
             }
         }
     }
     
-    public boolean comprobarChoque(){
+    public void comprobarChoque(){
         for(int i=0;i<letras.size();i++){
             if(c.comprobarPos(letras.get(i).getX(), letras.get(i).getY())){
                 System.out.println("CHOQUE");
                 letras.get(i).cambioDireccion();
-                return true;
-            }
-            else{
-                System.out.println("JUEGO ACABADO");
-                break;
+                
+            }else{
+                
+                
             }
         }
-        return false;
+        
 
         
         /*for(int i=0;i<letras.size();i++){
@@ -161,5 +161,11 @@ public class Vista extends Frame{
     }
     public void moverIzquierdaBarra(){
         b.moverIzquierda();
+    }
+    public int getXBarra(){
+        return b.getX();
+    }
+    public int getYBarra(){
+        return b.getY();
     }
 }

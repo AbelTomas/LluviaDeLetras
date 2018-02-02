@@ -15,7 +15,7 @@ import javax.swing.Timer;
  *
  * @author Jose
  */
-public class Controlador extends KeyAdapter implements ActionListener{
+public class Controlador extends KeyAdapter {
     private Timer timer,timer2;
     private Vista v;
     private Modelo m;
@@ -23,6 +23,7 @@ public class Controlador extends KeyAdapter implements ActionListener{
     public Controlador(){
         v=new Vista(this);
         m=new Modelo();
+        m.setYBarra(v.getYBarra());
         generarLetras();
         mover();
     }
@@ -50,11 +51,6 @@ public class Controlador extends KeyAdapter implements ActionListener{
     public void letraEliminada(char letra){
         m.letraEliminada(letra);
     }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        v.eliminarLetra(e);
-    }
     
     public boolean comprobarPos(int xletra, int yletra){
        return m.comprobarChoque(xletra,yletra);
@@ -65,12 +61,19 @@ public class Controlador extends KeyAdapter implements ActionListener{
      */
     @Override
     public void keyPressed(KeyEvent e) {
+        System.out.println("Letra pulsada");
         if(e.getKeyCode()==KeyEvent.VK_RIGHT){
-            //b.moverDerecha();
-        }
+            v.moverDerechaBarra();
+            m.setXBarra(v.getXBarra());
+        }else
         if(e.getKeyCode()==KeyEvent.VK_LEFT){
-            //b.moverIzquierda();
+            v.moverIzquierdaBarra();
+            m.setXBarra(v.getXBarra());
+        }else{
+            System.out.println(Character.toUpperCase(e.getKeyChar()));
+            v.eliminarLetra(Character.toUpperCase(e.getKeyChar()));
         }
+        
     }
     public void setXbarra(int x){
         m.setXBarra(x);

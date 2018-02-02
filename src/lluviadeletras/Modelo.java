@@ -15,7 +15,7 @@ public class Modelo {
 
     private int marcador, velocidad, nivel, numLetras;
     private ArrayList<Character> letrasUsadas;
-    private int xbarra, ybarra, lado = 30, ladobarra;
+    private int xbarra,ybarra,lado = 20, ladobarra=50;
     
     public Modelo() {
         letrasUsadas = new ArrayList<Character>();
@@ -56,14 +56,13 @@ public class Modelo {
      * @return
      */
     public boolean comprobarChoque(int xletra, int yletra) {
-        if (yletra + lado >= ybarra) {
-            if (xletra + lado >= xbarra && xletra <= (xbarra + ladobarra)) {
+        if ((yletra + lado) >= ybarra) {
+            if ((xletra + lado) >= xbarra && xletra <= (xbarra + ladobarra)) {
                 //ha chocado con la barra
                 return true;
             } else {
                 //no se ha chocado con la barra.
                 return false;
-                
             }
         }
         return false;
@@ -87,4 +86,8 @@ public class Modelo {
     public void setXBarra(int x){
         xbarra=x;
     }
+    public void setYBarra(int y){
+        ybarra=y;
+    }
+    
 }
