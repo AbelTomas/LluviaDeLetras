@@ -7,13 +7,15 @@ package lluviadeletras;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.Timer;
 
 /**
  *
  * @author Jose
  */
-public class Controlador implements ActionListener{
+public class Controlador extends KeyAdapter implements ActionListener{
     private Timer timer,timer2;
     private Vista v;
     private Modelo m;
@@ -52,5 +54,25 @@ public class Controlador implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         v.eliminarLetra(e);
+    }
+    
+    public boolean comprobarPos(int xletra, int yletra){
+       return m.comprobarChoque(xletra,yletra);
+    }
+        /**
+     * Mueve la barra
+     * @param e 
+     */
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+            //b.moverDerecha();
+        }
+        if(e.getKeyCode()==KeyEvent.VK_LEFT){
+            //b.moverIzquierda();
+        }
+    }
+    public void setXbarra(int x){
+        m.setXBarra(x);
     }
 }

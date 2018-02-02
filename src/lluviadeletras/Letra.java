@@ -104,6 +104,10 @@ public class Letra {
         this.velocidad = velocidad;
     }
     
+    public void cambioDireccion(){
+        this.velocidad=-velocidad;
+    }
+    
     public static void eliminarChar(String letra){
         System.out.println(letra.charAt(0));
         
