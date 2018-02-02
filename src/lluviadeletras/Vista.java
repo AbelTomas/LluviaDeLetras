@@ -34,10 +34,9 @@ public class Vista extends Frame{
     
     public Vista(Controlador c){
         this.c=c;
-        b=new Barra(anchoV);
+        b=new Barra(anchoV,c);
         b.setBackground(Color.red);
         b.setBounds(b.getX(), b.getY(), b.getAnchoB(), b.getAltoB());
-        this.addKeyListener(b.getControlBarra());
         this.add(b);
         letras=new ArrayList();
         botones=new ArrayList();
@@ -90,9 +89,7 @@ public class Vista extends Frame{
     }
     
     public void generarLetras(){
-        
         letras.add(new Letra(500,500));
-        
         
         btnLetra=new Button(""+letras.get(numLetras).getNombre());
         btnLetra.setBounds(letras.get(numLetras).getX(), 0, letras.get(numLetras).getLadoLetra(), letras.get(numLetras).getLadoLetra());
@@ -128,18 +125,41 @@ public class Vista extends Frame{
     }
     
     public boolean comprobarChoque(){
-        //for(int i=0;i<letras.size();i++){
+        for(int i=0;i<letras.size();i++){
+            if(c.comprobarPos(letras.get(i).getX(), letras.get(i).getY())){
+                System.out.println("CHOQUE");
+                letras.get(i).cambioDireccion();
+                return true;
+            }
+            else{
+                System.out.println("JUEGO ACABADO");
+                break;
+            }
+        }
+        return false;
+
+        
+        /*for(int i=0;i<letras.size();i++){
         if(!letras.isEmpty())
-            if(letras.get(0).getY()+letras.get(0).getLadoLetra()>=b.getY()){
-                if((letras.get(0).getX()+letras.get(0).getLadoLetra())>=b.getX() && letras.get(0).getX()<=(b.getX()+b.getAnchoB())){
+            if(letras.get(i).getY()+letras.get(i).getLadoLetra()>=b.getY()){
+                if((letras.get(i).getX()+letras.get(i).getLadoLetra())>=b.getX() && letras.get(i).getX()<=(b.getX()+b.getAnchoB())){
                     System.out.println("CHOQUE");
+                    letras.get(i).cambioDireccion();
                     return true;
                 }else{
                     System.out.println("JUEGO ACABADO");
+                    break;
                 }
             }
-        //}
+        }
         System.out.println("NO HAY CHOQUE");
-        return false;
+        return false;*/
+    }
+    public void moverDerechaBarra(){
+        b.moverDerecha();
+      
+    }
+    public void moverIzquierdaBarra(){
+        b.moverIzquierda();
     }
 }

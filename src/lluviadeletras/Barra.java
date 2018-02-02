@@ -14,15 +14,15 @@ import java.awt.Label;
 public class Barra extends Label{
     private int anchoV,altoB,anchoB;
     private int x, y = 450;
-    private ControlBarra cb;
+    private Controlador c;
     
-    public Barra(int anchoV){
+    public Barra(int anchoV, Controlador c){
         altoB=30;
         anchoB=50;
         this.anchoV=anchoV;
         x=this.anchoV/2-anchoB/2;
-        cb=new ControlBarra(this);
-        this.addKeyListener(cb);
+        this.c=c;
+        this.addKeyListener(c);
         
     }
 
@@ -40,9 +40,6 @@ public class Barra extends Label{
 
     public int getY() {
         return y;
-    }
-    public ControlBarra getControlBarra(){
-        return cb;
     }
 
     public void moverDerecha() {
