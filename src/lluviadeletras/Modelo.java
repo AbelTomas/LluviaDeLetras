@@ -62,6 +62,7 @@ public class Modelo {
                 return true;
             } else {
                 //no se ha chocado con la barra.
+                System.out.println(letrasUsadas);
                 return false;
             }
         }
@@ -88,6 +89,16 @@ public class Modelo {
     }
     public void setYBarra(int y){
         ybarra=y;
+    }
+
+    /**
+     * COmprueba si la letra se ha salido de la ventana por arriba
+     * @param x
+     * @param y
+     * @return 
+     */
+    public boolean comprobarSalida(int x, int y) {
+        return y<0;
     }
     
 }

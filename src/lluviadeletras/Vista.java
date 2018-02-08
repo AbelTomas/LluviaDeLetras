@@ -111,6 +111,8 @@ public class Vista extends Frame{
     
     public void eliminarLetra(char caracter){
         System.out.println(caracter);
+        System.out.println(letras);
+        
         for(int i=0;i<letras.size();i++){
             //System.out.println(caracter==letras.get(i).getNombre()+caracter+"-"+letras.get(i).getNombre());
             if(caracter==letras.get(i).getNombre()){
@@ -126,12 +128,16 @@ public class Vista extends Frame{
     
     public void comprobarChoque(){
         for(int i=0;i<letras.size();i++){
+            if(letras.get(i).getVelocidad()<0){
+                System.out.println("-------->");
+                if (c.comprobarSalida(letras.get(i).getX(), letras.get(i).getY())) {
+                    eliminarLetra(letras.get(i).getNombre());
+                    System.out.println("Letra fuera de la ventana");
+                }
+            }else
             if(c.comprobarPos(letras.get(i).getX(), letras.get(i).getY())){
                 System.out.println("CHOQUE");
                 letras.get(i).cambioDireccion();
-                
-            }else{
-                
                 
             }
         }

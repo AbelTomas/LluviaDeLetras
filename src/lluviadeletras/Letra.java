@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Letra {
 
-    private static final ArrayList letras=new ArrayList();
+    private static ArrayList letras=new ArrayList();
     private static final int num1 = 65, num2 = 90;  //Numeros de los caracteres de las letras en mayusculas
     private int altoV;
     private int x, y = 0;
@@ -99,6 +99,9 @@ public class Letra {
         return x;
     }
 
+    public int getVelocidad(){
+        return velocidad;
+    }
     
     public void setVelocidad(int velocidad) {
         this.velocidad = velocidad;
@@ -109,9 +112,10 @@ public class Letra {
     }
     
     public static void eliminarChar(String letra){
-        System.out.println(letra.charAt(0));
-        
-        System.out.println(letras.remove(letra.charAt(0)));
+        System.out.println(letra+"<-");
+        System.out.println(letras);
+        System.out.println(letras.remove(letra));
+        System.out.println(letras);
     }
 
     public int getLadoLetra() {

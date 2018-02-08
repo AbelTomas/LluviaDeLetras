@@ -61,7 +61,7 @@ public class Controlador extends KeyAdapter {
      */
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("Letra pulsada");
+        
         switch (e.getKeyCode()) {
             case KeyEvent.VK_RIGHT:
                 v.moverDerechaBarra();
@@ -81,4 +81,8 @@ public class Controlador extends KeyAdapter {
     public void setXbarra(int x){
         m.setXBarra(x);
     }
+
+    public boolean comprobarSalida(int x, int y) {
+            return m.comprobarSalida(x, y);
+        }
 }
