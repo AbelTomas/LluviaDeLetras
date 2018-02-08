@@ -55,23 +55,26 @@ public class Controlador extends KeyAdapter {
     public boolean comprobarPos(int xletra, int yletra){
        return m.comprobarChoque(xletra,yletra);
     }
-        /**
+    /**
      * Mueve la barra
      * @param e 
      */
     @Override
     public void keyPressed(KeyEvent e) {
         System.out.println("Letra pulsada");
-        if(e.getKeyCode()==KeyEvent.VK_RIGHT){
-            v.moverDerechaBarra();
-            m.setXBarra(v.getXBarra());
-        }else
-        if(e.getKeyCode()==KeyEvent.VK_LEFT){
-            v.moverIzquierdaBarra();
-            m.setXBarra(v.getXBarra());
-        }else{
-            System.out.println(Character.toUpperCase(e.getKeyChar()));
-            v.eliminarLetra(Character.toUpperCase(e.getKeyChar()));
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_RIGHT:
+                v.moverDerechaBarra();
+                m.setXBarra(v.getXBarra());
+                break;
+            case KeyEvent.VK_LEFT:
+                v.moverIzquierdaBarra();
+                m.setXBarra(v.getXBarra());
+                break;
+            default:
+                System.out.println(Character.toUpperCase(e.getKeyChar()));
+                v.eliminarLetra(Character.toUpperCase(e.getKeyChar()));
+                break;
         }
         
     }

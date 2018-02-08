@@ -13,7 +13,6 @@ import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.MenuShortcut;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.Timer;
 
