@@ -12,12 +12,13 @@ import java.util.ArrayList;
  * @author Jose
  */
 public class Modelo {
-
+    private Controlador c;
     private int marcador, velocidad, nivel, numLetras;
     private ArrayList<Character> letrasUsadas;
     private int xbarra,ybarra,lado = 20, ladobarra=50;
     
-    public Modelo() {
+    public Modelo(Controlador c) {
+        this.c=c;
         letrasUsadas = new ArrayList<Character>();
     }
     
@@ -88,6 +89,22 @@ public class Modelo {
     }
     public void setYBarra(int y){
         ybarra=y;
+    }
+    public void cambiarNivel(int nivel){
+        this.nivel=nivel;
+        modifVelocidad();
+        actualizarVelocidad();
+    }
+    public void modifVelocidad(){
+        velocidad=nivel;
+    }
+    public void actualizarVelocidad(){
+        c.actualizarV(velocidad);
+    }
+    
+    public int incrementarMarcador(){
+        marcador++;
+        return marcador;
     }
     
 }
