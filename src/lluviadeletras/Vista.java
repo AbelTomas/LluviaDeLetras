@@ -9,6 +9,7 @@ import java.awt.Button;
 import java.awt.CheckboxMenuItem;
 import java.awt.Color;
 import java.awt.Frame;
+import java.awt.Label;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
@@ -31,6 +32,7 @@ public class Vista extends Frame{
     private int numLetras;
     private Barra b;
     private CheckboxMenuItem[] cbmi;
+    private Label lblMarcador;
     
     
     public Vista(Controlador c){
@@ -70,6 +72,9 @@ public class Vista extends Frame{
         }
         cbmi[0].setState(true);
         
+        lblMarcador=new Label("Marcador: 0");
+        lblMarcador.setBounds(0, 50, 100, 30);
+        this.add(lblMarcador);
         
         this.setMenuBar(mb);
     }
@@ -84,6 +89,13 @@ public class Vista extends Frame{
         
         this.setVisible(true);
         numLetras++;
+        
+        for(int i=0;i<cbmi.length;i++){
+            if(cbmi[i].getState()==true){
+                c.cambiarNivel(Integer.parseInt(cbmi[i].getLabel().split(" ")[1]));
+                break;
+            }
+        }
     }
     
     public void mover(){
@@ -101,12 +113,14 @@ public class Vista extends Frame{
         for(int i=0;i<letras.size();i++){
             //System.out.println(caracter==letras.get(i).getNombre()+caracter+"-"+letras.get(i).getNombre());
             if(caracter==letras.get(i).getNombre()){
+                System.out.println("rrrrtttt");
                 this.remove(botones.get(i));
                 letras.remove(i);
                 botones.remove(i);
                 c.letraEliminada(letras.get(i).getNombre());
                 numLetras--;
                 Letra.eliminarChar(caracter+"");
+                setMarcador();
             }
         }
     }
@@ -125,21 +139,7 @@ public class Vista extends Frame{
         
 
         
-        /*for(int i=0;i<letras.size();i++){
-        if(!letras.isEmpty())
-            if(letras.get(i).getY()+letras.get(i).getLadoLetra()>=b.getY()){
-                if((letras.get(i).getX()+letras.get(i).getLadoLetra())>=b.getX() && letras.get(i).getX()<=(b.getX()+b.getAnchoB())){
-                    System.out.println("CHOQUE");
-                    letras.get(i).cambioDireccion();
-                    return true;
-                }else{
-                    System.out.println("JUEGO ACABADO");
-                    break;
-                }
-            }
-        }
-        System.out.println("NO HAY CHOQUE");
-        return false;*/
+        
     }
     public void moverDerechaBarra(){
         b.moverDerecha();
@@ -189,5 +189,9 @@ public class Vista extends Frame{
         for(int i=0;i<letras.size();i++){
             letras.get(i).setVelocidad(velocidad);
         }
+    }
+    
+    public void setMarcador(){
+        lblMarcador.setText("Marcador: "+c.incrementarMarcador());
     } 
 }
