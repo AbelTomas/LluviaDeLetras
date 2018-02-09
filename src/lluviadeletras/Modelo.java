@@ -14,20 +14,10 @@ public class Modelo {
 
     private int marcador, velocidad, nivel, numLetras;
     private int xbarra,ybarra,lado = 20, ladobarra=50;
-    
-    public Modelo() {
-       // letrasUsadas = new ArrayList<Character>();
+    private Controlador c;
+    public Modelo(Controlador c) {
+       this.c=c;
     }
-    
-    /*
-    public void letraEliminada(char letra) {
-        for (int i = 0; i < letrasUsadas.size(); i++) {
-            if (letrasUsadas.get(i) == letra) {
-                letrasUsadas.remove(i - 1);
-                numLetras--;
-            }
-        }
-    }*/
 
     /**
      * comprueba si la letra ha chocado con la barra
@@ -43,27 +33,12 @@ public class Modelo {
                 return true;
             } else {
                 //no se ha chocado con la barra.
-                
+                finJuego(1);
                 return false;
             }
         }
         return false;
 
-        /*for(int i=0;i<letras.size();i++){
-        if(!letras.isEmpty())
-            if(letras.get(i).getY()+letras.get(i).getLadoLetra()>=b.getY()){
-                if((letras.get(i).getX()+letras.get(i).getLadoLetra())>=b.getX() && letras.get(i).getX()<=(b.getX()+b.getAnchoB())){
-                    System.out.println("CHOQUE");
-                    letras.get(i).cambioDireccion();
-                    return true;
-                }else{
-                    System.out.println("JUEGO ACABADO");
-                    break;
-                }
-            }
-        }
-        System.out.println("NO HAY CHOQUE");
-        return false;*/
     }
     public void setXBarra(int x){
         xbarra=x;
@@ -78,8 +53,15 @@ public class Modelo {
      * @param y
      * @return 
      */
-    public boolean comprobarSalida(int x, int y) {
-        return y<0;
+    public void comprobarSalida(int x, int y) {
+        if (y<0) {
+            finJuego(2);
+        }
+    }
+
+    private void finJuego(int n) {
+        c.finTime();
+        System.exit(n);
     }
     
 }

@@ -22,7 +22,7 @@ public class Controlador extends KeyAdapter {
     
     public Controlador(){
         v=new Vista(this);
-        m=new Modelo();
+        m=new Modelo(this);
         m.setYBarra(v.getYBarra());
         m.setXBarra(v.getXBarra());
         generarLetras();
@@ -81,7 +81,11 @@ public class Controlador extends KeyAdapter {
         m.setXBarra(x);
     }
 
-    public boolean comprobarSalida(int x, int y) {
-            return m.comprobarSalida(x, y);
+    public void finTime(){
+        timer.stop();
+        timer2.stop();
+    }
+    public void comprobarSalida(int x, int y) {
+            m.comprobarSalida(x, y);
         }
 }

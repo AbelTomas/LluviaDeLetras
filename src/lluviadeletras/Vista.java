@@ -14,7 +14,7 @@ import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.MenuShortcut;
 import java.util.ArrayList;
-import javax.swing.Timer;
+
 
 /**
  *
@@ -23,9 +23,8 @@ import javax.swing.Timer;
 public class Vista extends Frame{
     private ArrayList<Letra> letras;
     private ArrayList<Button> botones;
-    private Timer timer;
     private Button btnLetra;
-    private int pos,anchoV=500,altoV=500;
+    private int anchoV=500,altoV=500;
     private Controlador c;
     private int numLetras;
     private Barra b;
@@ -129,11 +128,12 @@ public class Vista extends Frame{
     public void comprobarChoque(){
         for(int i=0;i<letras.size();i++){
             if(letras.get(i).getVelocidad()<0){
-                System.out.println("-------->");
+                c.comprobarSalida(letras.get(i).getX(), letras.get(i).getY());
+                /*
                 if (c.comprobarSalida(letras.get(i).getX(), letras.get(i).getY())) {
                     eliminarLetra(letras.get(i).getNombre());
                     System.out.println("Letra fuera de la ventana");
-                }
+                }*/
             }else
             if(c.comprobarPos(letras.get(i).getX(), letras.get(i).getY())){
                 System.out.println("CHOQUE");
