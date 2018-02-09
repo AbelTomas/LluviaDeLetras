@@ -14,9 +14,8 @@ import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.MenuShortcut;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import javax.swing.Timer;
+
 
 /**
  *
@@ -25,9 +24,8 @@ import javax.swing.Timer;
 public class Vista extends Frame{
     private ArrayList<Letra> letras;
     private ArrayList<Button> botones;
-    private Timer timer;
     private Button btnLetra;
-    private int pos,anchoV=500,altoV=500;
+    private int anchoV=500,altoV=500;
     private Controlador c;
     private int numLetras;
     private Barra b;
@@ -110,29 +108,37 @@ public class Vista extends Frame{
     
     public void eliminarLetra(char caracter){
         System.out.println(caracter);
+        System.out.println(letras);
+        
         for(int i=0;i<letras.size();i++){
             //System.out.println(caracter==letras.get(i).getNombre()+caracter+"-"+letras.get(i).getNombre());
             if(caracter==letras.get(i).getNombre()){
                 System.out.println("rrrrtttt");
                 this.remove(botones.get(i));
+                letras.get(i).eliminarChar(i);
                 letras.remove(i);
                 botones.remove(i);
-                c.letraEliminada(letras.get(i).getNombre());
                 numLetras--;
                 Letra.eliminarChar(caracter+"");
                 setMarcador();
+
             }
         }
     }
     
     public void comprobarChoque(){
         for(int i=0;i<letras.size();i++){
+            if(letras.get(i).getVelocidad()<0){
+                c.comprobarSalida(letras.get(i).getX(), letras.get(i).getY());
+                /*
+                if (c.comprobarSalida(letras.get(i).getX(), letras.get(i).getY())) {
+                    eliminarLetra(letras.get(i).getNombre());
+                    System.out.println("Letra fuera de la ventana");
+                }*/
+            }else
             if(c.comprobarPos(letras.get(i).getX(), letras.get(i).getY())){
                 System.out.println("CHOQUE");
                 letras.get(i).cambioDireccion();
-                
-            }else{
-                
                 
             }
         }

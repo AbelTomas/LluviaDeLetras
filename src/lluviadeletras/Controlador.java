@@ -26,6 +26,7 @@ public class Controlador extends KeyAdapter implements ItemListener{
         v=new Vista(this);
         m=new Modelo(this);
         m.setYBarra(v.getYBarra());
+        m.setXBarra(v.getXBarra());
         generarLetras();
         mover();
     }
@@ -50,36 +51,47 @@ public class Controlador extends KeyAdapter implements ItemListener{
         timer2.start();
     }
     
-    public void letraEliminada(char letra){
-        m.letraEliminada(letra);
-    }
+
     
     public boolean comprobarPos(int xletra, int yletra){
        return m.comprobarChoque(xletra,yletra);
     }
-        /**
+    /**
      * Mueve la barra
      * @param e 
      */
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("Letra pulsada");
-        if(e.getKeyCode()==KeyEvent.VK_RIGHT){
-            v.moverDerechaBarra();
-            m.setXBarra(v.getXBarra());
-        }else
-        if(e.getKeyCode()==KeyEvent.VK_LEFT){
-            v.moverIzquierdaBarra();
-            m.setXBarra(v.getXBarra());
-        }else{
-            System.out.println(Character.toUpperCase(e.getKeyChar()));
-            v.eliminarLetra(Character.toUpperCase(e.getKeyChar()));
+        
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_RIGHT:
+                v.moverDerechaBarra();
+                m.setXBarra(v.getXBarra());
+                break;
+            case KeyEvent.VK_LEFT:
+                v.moverIzquierdaBarra();
+                m.setXBarra(v.getXBarra());
+                break;
+            default:
+                System.out.println(Character.toUpperCase(e.getKeyChar()));
+                v.eliminarLetra(Character.toUpperCase(e.getKeyChar()));
+                break;
         }
         
     }
     public void setXbarra(int x){
         m.setXBarra(x);
     }
+
+    public void finTime(){
+        timer.stop();
+        timer2.stop();
+    }
+    public void comprobarSalida(int x, int y) {
+            m.comprobarSalida(x, y);
+        }
+  
+
     
     public void cambiarNivel(int nivel){
         m.cambiarNivel(nivel);
@@ -100,4 +112,5 @@ public class Controlador extends KeyAdapter implements ItemListener{
         //m.cambiarNivel(Integer.parseInt(e.getItem().toString().split(" ")[1]));
         cambiarNivel(Integer.parseInt(e.getItem().toString().split(" ")[1]));
     }
+
 }
