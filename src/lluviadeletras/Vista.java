@@ -119,7 +119,7 @@ public class Vista extends Frame{
                 letras.remove(i);
                 botones.remove(i);
                 numLetras--;
-                Letra.eliminarChar(caracter+"");
+                letras.get(i).eliminarChar(i);
                 setMarcador();
 
             }
