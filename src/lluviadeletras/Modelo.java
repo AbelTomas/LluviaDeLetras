@@ -11,13 +11,19 @@ package lluviadeletras;
  * @author Jose
  */
 public class Modelo {
-
+    private Controlador c;
     private int marcador, velocidad, nivel, numLetras;
     private int xbarra,ybarra,lado = 20, ladobarra=50;
-    private Controlador c;
+
+    
     public Modelo(Controlador c) {
-       this.c=c;
+        this.c=c;
+        
     }
+    
+   
+    
+    
 
     /**
      * comprueba si la letra ha chocado con la barra
@@ -62,6 +68,23 @@ public class Modelo {
     private void finJuego(int n) {
         c.finTime();
         System.exit(n);
+    }
+    public void cambiarNivel(int nivel){
+        this.nivel=nivel;
+        modifVelocidad();
+        actualizarVelocidad();
+    }
+    public void modifVelocidad(){
+        velocidad=nivel;
+    }
+    public void actualizarVelocidad(){
+        c.actualizarV(velocidad);
+    }
+    
+    public int incrementarMarcador(){
+        marcador++;
+        return marcador;
+
     }
     
 }

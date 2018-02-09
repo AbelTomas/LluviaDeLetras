@@ -9,6 +9,7 @@ import java.awt.Button;
 import java.awt.CheckboxMenuItem;
 import java.awt.Color;
 import java.awt.Frame;
+import java.awt.Label;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
@@ -28,6 +29,8 @@ public class Vista extends Frame{
     private Controlador c;
     private int numLetras;
     private Barra b;
+    private CheckboxMenuItem[] cbmi;
+    private Label lblMarcador;
     
     
     public Vista(Controlador c){
@@ -56,32 +59,20 @@ public class Vista extends Frame{
         MenuItem salir=new MenuItem("Salir");
         arch.add(salir);
         
-        CheckboxMenuItem level1=new CheckboxMenuItem("Nivel 1",true);
-        MenuShortcut msControl1=new MenuShortcut(49);
-        level1.setShortcut(msControl1);
+        cbmi=new CheckboxMenuItem[5];
         
-        CheckboxMenuItem level2=new CheckboxMenuItem("Nivel 2");
-        MenuShortcut msControl2=new MenuShortcut(50);
-        level2.setShortcut(msControl2);
+        for(int i=0;i<cbmi.length;i++){
+            cbmi[i]=new CheckboxMenuItem("Nivel "+(i+1));
+            cbmi[i].addItemListener(c);
+            MenuShortcut msControl=new MenuShortcut(49+i);
+            cbmi[i].setShortcut(msControl);
+            level.add(cbmi[i]);
+        }
+        cbmi[0].setState(true);
         
-        CheckboxMenuItem level3=new CheckboxMenuItem("Nivel 3");
-        MenuShortcut msControl3=new MenuShortcut(51);
-        level3.setShortcut(msControl3);
-        
-        CheckboxMenuItem level4=new CheckboxMenuItem("Nivel 4");
-        MenuShortcut msControl4=new MenuShortcut(52);
-        level4.setShortcut(msControl4);
-        
-        CheckboxMenuItem level5=new CheckboxMenuItem("Nivel 5");
-        MenuShortcut msControl5=new MenuShortcut(53);
-        level5.setShortcut(msControl5);
-        
-        level.add(level1);
-        level.add(level2);
-        level.add(level3);
-        level.add(level4);
-        level.add(level5);
-        
+        lblMarcador=new Label("Marcador: 0");
+        lblMarcador.setBounds(0, 50, 100, 30);
+        this.add(lblMarcador);
         
         this.setMenuBar(mb);
     }
@@ -96,6 +87,13 @@ public class Vista extends Frame{
         
         this.setVisible(true);
         numLetras++;
+        
+        for(int i=0;i<cbmi.length;i++){
+            if(cbmi[i].getState()==true){
+                c.cambiarNivel(Integer.parseInt(cbmi[i].getLabel().split(" ")[1]));
+                break;
+            }
+        }
     }
     
     public void mover(){
@@ -115,12 +113,15 @@ public class Vista extends Frame{
         for(int i=0;i<letras.size();i++){
             //System.out.println(caracter==letras.get(i).getNombre()+caracter+"-"+letras.get(i).getNombre());
             if(caracter==letras.get(i).getNombre()){
+                System.out.println("rrrrtttt");
                 this.remove(botones.get(i));
                 letras.get(i).eliminarChar(i);
                 letras.remove(i);
                 botones.remove(i);
                 numLetras--;
-               
+                Letra.eliminarChar(caracter+"");
+                setMarcador();
+
             }
         }
     }
@@ -144,21 +145,7 @@ public class Vista extends Frame{
         
 
         
-        /*for(int i=0;i<letras.size();i++){
-        if(!letras.isEmpty())
-            if(letras.get(i).getY()+letras.get(i).getLadoLetra()>=b.getY()){
-                if((letras.get(i).getX()+letras.get(i).getLadoLetra())>=b.getX() && letras.get(i).getX()<=(b.getX()+b.getAnchoB())){
-                    System.out.println("CHOQUE");
-                    letras.get(i).cambioDireccion();
-                    return true;
-                }else{
-                    System.out.println("JUEGO ACABADO");
-                    break;
-                }
-            }
-        }
-        System.out.println("NO HAY CHOQUE");
-        return false;*/
+        
     }
     public void moverDerechaBarra(){
         b.moverDerecha();
@@ -173,4 +160,44 @@ public class Vista extends Frame{
     public int getYBarra(){
         return b.getY();
     }
+    
+    /**
+     * Marca todos los CheckboxMenuItem de nivel a false.
+     */
+    public void cbmiFalse(){
+        for(int i=0;i<cbmi.length;i++){
+            cbmi[i].setState(false);
+        }
+    }
+    /**
+     * Marca el CheckboxMenuItem que recibe a true.
+     * @param item 
+     */
+    public void cbmiTrue(String item){
+        for(int i=0;i<cbmi.length;i++){
+            if(cbmi[i].getLabel()==item){
+                cbmi[i].setState(true);
+                break;
+            }
+        }
+    }
+    
+    public void cambiarFondo(){
+        int red = (int)(Math.random()*255);
+        int green = (int)(Math.random()*255);
+        int blue = (int)(Math.random()*255);
+        
+        Color color = new Color(red,green,blue);
+        this.setBackground(color);
+    }
+    
+    public void actualizarVelocidad(int velocidad){
+        for(int i=0;i<letras.size();i++){
+            letras.get(i).setVelocidad(velocidad);
+        }
+    }
+    
+    public void setMarcador(){
+        lblMarcador.setText("Marcador: "+c.incrementarMarcador());
+    } 
 }

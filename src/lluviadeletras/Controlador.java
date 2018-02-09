@@ -7,6 +7,8 @@ package lluviadeletras;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.Timer;
@@ -15,7 +17,7 @@ import javax.swing.Timer;
  *
  * @author Jose
  */
-public class Controlador extends KeyAdapter {
+public class Controlador extends KeyAdapter implements ItemListener{
     private Timer timer,timer2;
     private Vista v;
     private Modelo m;
@@ -88,4 +90,27 @@ public class Controlador extends KeyAdapter {
     public void comprobarSalida(int x, int y) {
             m.comprobarSalida(x, y);
         }
+  
+
+    
+    public void cambiarNivel(int nivel){
+        m.cambiarNivel(nivel);
+    }
+    
+    public void actualizarV(int velocidad){
+        v.actualizarVelocidad(velocidad);
+    }
+    
+    public int incrementarMarcador(){
+        return m.incrementarMarcador();
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        v.cbmiFalse();
+        v.cbmiTrue(e.getItem().toString());
+        //m.cambiarNivel(Integer.parseInt(e.getItem().toString().split(" ")[1]));
+        cambiarNivel(Integer.parseInt(e.getItem().toString().split(" ")[1]));
+    }
+
 }
