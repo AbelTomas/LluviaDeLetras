@@ -111,7 +111,7 @@ public class Letra {
         this.velocidad=-velocidad;
     }
     
-    public static void eliminarChar(String letra){
+    public void eliminarChar(int letra){
         System.out.println(letra+"<-");
         System.out.println(letras);
         System.out.println(letras.remove(letra));

@@ -5,7 +5,6 @@
  */
 package lluviadeletras;
 
-import java.util.ArrayList;
 
 /**
  *
@@ -14,31 +13,13 @@ import java.util.ArrayList;
 public class Modelo {
 
     private int marcador, velocidad, nivel, numLetras;
-    private ArrayList<Character> letrasUsadas;
     private int xbarra,ybarra,lado = 20, ladobarra=50;
     
     public Modelo() {
-        letrasUsadas = new ArrayList<Character>();
+       // letrasUsadas = new ArrayList<Character>();
     }
     
-    public char generarLetras() {
-        int i;
-        char ale;
-        
-        do {
-            ale = (char) (int) (Math.random() * (90 - 65) + 65);
-            for (i = 0; i < numLetras && letrasUsadas.get(i) != ale; i++);            
-        } while (i != numLetras);
-        
-        letrasUsadas.add(ale);
-        numLetras++;
-        for (int j = 0; j < letrasUsadas.size(); j++) {
-            System.out.print(letrasUsadas.get(j));
-        }
-        System.out.println("");
-        return ale;
-    }
-    
+    /*
     public void letraEliminada(char letra) {
         for (int i = 0; i < letrasUsadas.size(); i++) {
             if (letrasUsadas.get(i) == letra) {
@@ -46,7 +27,7 @@ public class Modelo {
                 numLetras--;
             }
         }
-    }
+    }*/
 
     /**
      * comprueba si la letra ha chocado con la barra
@@ -62,7 +43,7 @@ public class Modelo {
                 return true;
             } else {
                 //no se ha chocado con la barra.
-                System.out.println(letrasUsadas);
+                
                 return false;
             }
         }

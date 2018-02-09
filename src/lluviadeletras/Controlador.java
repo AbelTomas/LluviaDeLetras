@@ -24,6 +24,7 @@ public class Controlador extends KeyAdapter {
         v=new Vista(this);
         m=new Modelo();
         m.setYBarra(v.getYBarra());
+        m.setXBarra(v.getXBarra());
         generarLetras();
         mover();
     }
@@ -48,9 +49,7 @@ public class Controlador extends KeyAdapter {
         timer2.start();
     }
     
-    public void letraEliminada(char letra){
-        m.letraEliminada(letra);
-    }
+
     
     public boolean comprobarPos(int xletra, int yletra){
        return m.comprobarChoque(xletra,yletra);

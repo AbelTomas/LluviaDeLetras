@@ -117,11 +117,11 @@ public class Vista extends Frame{
             //System.out.println(caracter==letras.get(i).getNombre()+caracter+"-"+letras.get(i).getNombre());
             if(caracter==letras.get(i).getNombre()){
                 this.remove(botones.get(i));
+                letras.get(i).eliminarChar(i);
                 letras.remove(i);
                 botones.remove(i);
-                c.letraEliminada(letras.get(i).getNombre());
                 numLetras--;
-                Letra.eliminarChar(caracter+"");
+               
             }
         }
     }
