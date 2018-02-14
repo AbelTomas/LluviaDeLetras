@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lluviadeletras;
+package lluvideletras;
 
 import java.awt.Button;
 import java.awt.CheckboxMenuItem;
@@ -14,7 +14,10 @@ import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.MenuShortcut;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.Timer;
 
 
 /**
@@ -25,12 +28,14 @@ public class Vista extends Frame{
     private ArrayList<Letra> letras;
     private ArrayList<Button> botones;
     private Button btnLetra;
-    private int anchoV=500,altoV=500;
+    private int pos,anchoV=500,altoV=500;
     private Controlador c;
     private int numLetras;
     private Barra b;
     private CheckboxMenuItem[] cbmi;
     private Label lblMarcador;
+    private Label lblNivel;
+    private int aciertos;
     
     
     public Vista(Controlador c){
@@ -71,8 +76,19 @@ public class Vista extends Frame{
         cbmi[0].setState(true);
         
         lblMarcador=new Label("Marcador: 0");
-        lblMarcador.setBounds(0, 50, 100, 30);
+        lblMarcador.setBounds(10, 50, 100, 30);
         this.add(lblMarcador);
+        
+        lblNivel=new Label();
+        lblNivel.setBounds(400, 50, 100, 30);
+        this.add(lblNivel);
+        for(int i=0;i<cbmi.length;i++){
+            if(cbmi[i].getState()==true){
+                int nivel=Integer.parseInt(cbmi[i].getLabel().split(" ")[1]);
+                    lblNivel.setText("Nivel: "+nivel);
+                break;
+            }
+        }
         
         this.setMenuBar(mb);
     }
@@ -105,36 +121,41 @@ public class Vista extends Frame{
         }
         this.setVisible(true);
     }
-    
+    /**
+     * Comprueba si existe la letra, si es así la elimina sino llama a cambiar de color el fondo y a restar en el marcador.
+     * @param caracter 
+     */
     public void eliminarLetra(char caracter){
-        System.out.println(caracter);
-        System.out.println(letras);
+        int i;
+        for(i=0;i<letras.size() && caracter!=letras.get(i).getNombre();i++);
         
-        for(int i=0;i<letras.size();i++){
-            //System.out.println(caracter==letras.get(i).getNombre()+caracter+"-"+letras.get(i).getNombre());
-            if(caracter==letras.get(i).getNombre()){
-                System.out.println("rrrrtttt");
-                this.remove(botones.get(i));
-                letras.get(i).eliminarChar(i);
-                letras.remove(i);
-                botones.remove(i);
-                numLetras--;
-                letras.get(i).eliminarChar(i);
-                setMarcador();
-
-            }
+        if(i==letras.size()){
+            System.out.println("caracter:"+caracter);
+            lblMarcador.setText("Marcador: "+c.restarMarcador());
+            cambiarFondo(Color.red);
+            Timer timer=new Timer(100,new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    cambiarFondo(Color.white);
+                }
+            });
+            timer.start();
+        }else{
+            this.remove(botones.get(i));
+            letras.remove(i);
+            botones.remove(i);
+            numLetras--;
+            Letra.eliminarChar(i);
+            setMarcador();
         }
+        
     }
     
     public void comprobarChoque(){
         for(int i=0;i<letras.size();i++){
             if(letras.get(i).getVelocidad()<0){
                 c.comprobarSalida(letras.get(i).getX(), letras.get(i).getY());
-                /*
-                if (c.comprobarSalida(letras.get(i).getX(), letras.get(i).getY())) {
-                    eliminarLetra(letras.get(i).getNombre());
-                    System.out.println("Letra fuera de la ventana");
-                }*/
+                
             }else
             if(c.comprobarPos(letras.get(i).getX(), letras.get(i).getY())){
                 System.out.println("CHOQUE");
@@ -174,30 +195,52 @@ public class Vista extends Frame{
      * @param item 
      */
     public void cbmiTrue(String item){
+        
         for(int i=0;i<cbmi.length;i++){
-            if(cbmi[i].getLabel()==item){
+            if(cbmi[i].getLabel().equals(item)){
+                lblNivel.setText("Nivel: "+cbmi[i].getLabel().split(" ")[1]);
                 cbmi[i].setState(true);
                 break;
             }
         }
     }
     
-    public void cambiarFondo(){
-        int red = (int)(Math.random()*255);
-        int green = (int)(Math.random()*255);
-        int blue = (int)(Math.random()*255);
-        
-        Color color = new Color(red,green,blue);
+    public void cambiarFondo(Color color){
         this.setBackground(color);
     }
     
+    
     public void actualizarVelocidad(int velocidad){
         for(int i=0;i<letras.size();i++){
-            letras.get(i).setVelocidad(velocidad);
+            if(letras.get(i).getVelocidad()>=0){
+                letras.get(i).setVelocidad(velocidad);
+            }else{
+                letras.get(i).setVelocidad(-velocidad);
+            }
+            
         }
     }
     
     public void setMarcador(){
-        lblMarcador.setText("Marcador: "+c.incrementarMarcador());
-    } 
+        int marcador=c.incrementarMarcador();
+        comprobarMarcador(marcador);
+        lblMarcador.setText("Marcador: "+marcador);
+    }
+    
+    public void comprobarMarcador(int marcador){
+        aciertos++;
+        if(aciertos==2){
+            aciertos=0;
+            for(int i=0;i<cbmi.length;i++){
+                if(cbmi[i].getState()==true){
+                    int nivel=Integer.parseInt(cbmi[i].getLabel().split(" ")[1]);
+                    cbmiFalse();
+                    cbmiTrue("Nivel "+(nivel+1));
+                    c.cambiarNivel(nivel+1);
+                    break;
+                }
+            }
+            
+        }
+    }
 }

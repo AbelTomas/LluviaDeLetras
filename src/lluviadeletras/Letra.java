@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lluviadeletras;
+package lluvideletras;
 
 import java.util.ArrayList;
 
@@ -13,12 +13,12 @@ import java.util.ArrayList;
  */
 public class Letra {
 
-    private static ArrayList letras=new ArrayList();
+    private static final ArrayList letras=new ArrayList();
     private static final int num1 = 65, num2 = 90;  //Numeros de los caracteres de las letras en mayusculas
     private int altoV;
     private int x, y = 0;
     private char nombre;
-    private int velocidad = 2;
+    private int velocidad;
     private static int ladoLetra=20;
 
     public Letra(int anchoV, int altoV) {
@@ -99,9 +99,6 @@ public class Letra {
         return x;
     }
 
-    public int getVelocidad(){
-        return velocidad;
-    }
     
     public void setVelocidad(int velocidad) {
         this.velocidad = velocidad;
@@ -111,15 +108,18 @@ public class Letra {
         this.velocidad=-velocidad;
     }
     
-    public void eliminarChar(int letra){
-        System.out.println(letra+"<-");
-        System.out.println(letras);
+    public static void eliminarChar(int letra){
         System.out.println(letras.remove(letra));
-        System.out.println(letras);
     }
 
     public int getLadoLetra() {
         return ladoLetra;
     }
+
+    public int getVelocidad() {
+        return velocidad;
+    }
+    
+    
     
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lluviadeletras;
+package lluvideletras;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -88,10 +88,12 @@ public class Controlador extends KeyAdapter implements ItemListener{
         timer2.stop();
     }
     public void comprobarSalida(int x, int y) {
-            m.comprobarSalida(x, y);
-        }
+        m.comprobarSalida(x, y);
+    }
   
-
+    public int restarMarcador(){
+        return m.restarMarcador();
+    }
     
     public void cambiarNivel(int nivel){
         m.cambiarNivel(nivel);

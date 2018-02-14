@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lluviadeletras;
+package lluvideletras;
 
 
 /**
@@ -85,6 +85,11 @@ public class Modelo {
         marcador++;
         return marcador;
 
+    }
+    
+    public int restarMarcador(){
+        marcador--;
+        return marcador;
     }
     
 }
