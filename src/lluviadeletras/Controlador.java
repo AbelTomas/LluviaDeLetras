@@ -30,7 +30,10 @@ public class Controlador extends KeyAdapter implements ItemListener{
         generarLetras();
         mover();
     }
-    
+    /**
+     * Metodo que genera una letra cada 2 segundos.
+     * Llama a generar letra de la vista
+     */
     public void generarLetras(){
         timer=new Timer(2000,new ActionListener() {
             @Override
@@ -40,7 +43,10 @@ public class Controlador extends KeyAdapter implements ItemListener{
         });
         timer.start();
     }
-    
+    /**
+     * Metodo que actualiza la posicionde las letras cada 100 milisegundos
+     * Llama al metodo mover de la vista.
+     */
     public void mover(){
         timer2=new Timer(100,new ActionListener() {
             @Override
@@ -52,13 +58,18 @@ public class Controlador extends KeyAdapter implements ItemListener{
     }
     
 
-    
+    /**
+     * Comprueba si una letra se ha chocado con la barra.
+     * @param xletra x de la letra que queremos comprobar
+     * @param yletra y de la letra que queremos comprobar
+     * @return devuelve true si ha chocado, false si no
+     */
     public boolean comprobarPos(int xletra, int yletra){
        return m.comprobarChoque(xletra,yletra);
     }
     /**
      * Mueve la barra
-     * @param e 
+     * @param e evento generado
      */
     @Override
     public void keyPressed(KeyEvent e) {
@@ -82,25 +93,50 @@ public class Controlador extends KeyAdapter implements ItemListener{
     public void setXbarra(int x){
         m.setXBarra(x);
     }
+    public int getVelocidad(){
+        return m.getVelocidad();
+    }
 
+    /**
+     * detiene los timer
+     */
     public void finTime(){
         timer.stop();
         timer2.stop();
     }
+    /**
+     * Llama a comprobar salida de modelo.
+     * @param x x de la letra que queremos comprobar
+     * @param y y de la letra que queremos comprobar
+     */
     public void comprobarSalida(int x, int y) {
-            m.comprobarSalida(x, y);
-        }
-  
-
-    
+        m.comprobarSalida(x, y);
+    }
+   /**
+    * disminuye el marcador del modelo
+    * @return 
+    */
+    public int restarMarcador(){
+        return m.restarMarcador();
+    }
+    /**
+     * Establece el nivel en el modelo
+     * @param nivel 
+     */
     public void cambiarNivel(int nivel){
         m.cambiarNivel(nivel);
     }
-    
+    /**
+     * Actualiza el valor de la velocidad de todas las letras.
+     * @param velocidad 
+     */
     public void actualizarV(int velocidad){
         v.actualizarVelocidad(velocidad);
     }
-    
+    /**
+     * Aumenta el valor del marcador del modelo
+     * @return 
+     */
     public int incrementarMarcador(){
         return m.incrementarMarcador();
     }

@@ -7,7 +7,7 @@ package lluviadeletras;
 
 /**
  *
- * @author Abel y Jose
+ * @author Jose
  */
 public class LluviaDeLetras {
 
