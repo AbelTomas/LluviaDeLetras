@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lluvideletras;
+package lluviadeletras;
 
 
 /**
@@ -12,7 +12,7 @@ package lluvideletras;
  */
 public class Modelo {
     private Controlador c;
-    private int marcador, velocidad, nivel, numLetras;
+    private int marcador, velocidad=1, nivel=1, numLetras;
     private int xbarra,ybarra,lado = 20, ladobarra=50;
 
     
@@ -57,7 +57,6 @@ public class Modelo {
      * COmprueba si la letra se ha salido de la ventana por arriba
      * @param x
      * @param y
-     * @return 
      */
     public void comprobarSalida(int x, int y) {
         if (y<0) {
@@ -65,31 +64,49 @@ public class Modelo {
         }
     }
 
+    /**
+     * Finaliza la ejecucion del programa
+     * @param n parametro que indicara en que momento se ha llamado a esta funcion.
+     */
     private void finJuego(int n) {
         c.finTime();
         System.exit(n);
     }
+    /**
+     * Establece el nivel en el modelo y llama a actualizar velocidad de la vista
+     * @param nivel 
+     */
     public void cambiarNivel(int nivel){
         this.nivel=nivel;
         modifVelocidad();
-        actualizarVelocidad();
+        c.actualizarV(velocidad);
     }
+    /**
+     * Ajusta la velocidad de caida de la letra al nivel.
+     */
     public void modifVelocidad(){
         velocidad=nivel;
     }
-    public void actualizarVelocidad(){
-        c.actualizarV(velocidad);
-    }
-    
+    /**
+     * Aumenta el marcador
+     * @return devuelve el numero del marcador
+     */
     public int incrementarMarcador(){
         marcador++;
         return marcador;
 
     }
-    
+    /**
+     * Disminuye el marcador
+     * @return devuelve el valor del marcador
+     */
     public int restarMarcador(){
         marcador--;
         return marcador;
+    }
+    
+    public int getVelocidad(){
+        return velocidad;
     }
     
 }

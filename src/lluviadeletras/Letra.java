@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lluvideletras;
+package lluviadeletras;
 
 import java.util.ArrayList;
 
@@ -13,21 +13,26 @@ import java.util.ArrayList;
  */
 public class Letra {
 
-    private static final ArrayList letras=new ArrayList();
+    private static final ArrayList letras = new ArrayList();
     private static final int num1 = 65, num2 = 90;  //Numeros de los caracteres de las letras en mayusculas
     private int altoV;
     private int x, y = 0;
     private char nombre;
     private int velocidad;
-    private static int ladoLetra=20;
+    private static int ladoLetra = 20;
 
     public Letra(int anchoV, int altoV) {
-        this.altoV=altoV;
+        this.altoV = altoV;
         //letras=new ArrayList();
         nombre = generarLetra(); //Asignamos la letra a nuestro objeto letra
-        x=generarAleatorio(anchoV);
+        x = generarXAleatoria(anchoV);
     }
 
+    /**
+     * Metodo que devuelve una letra aleatoria comprobando que no esta repetida.
+     *
+     * @return
+     */
     private char generarLetra() {
         char c;
         int numAleatorio;
@@ -41,10 +46,11 @@ public class Letra {
     }
 
     /**
-     * Le pasamos la letra que queremos comprobar si esta en el array
-     * devuelve true si la letra esta repetida y false si no lo está
+     * Le pasamos la letra que queremos comprobar si esta en el array devuelve
+     * true si la letra esta repetida y false si no lo está
+     *
      * @param c
-     * @return 
+     * @return
      */
     private boolean comprobarRepetida(char c) {
         if (letras.isEmpty()) {
@@ -55,33 +61,24 @@ public class Letra {
     }
 
     /**
-     * Metodo que genera la posicion x de la letra, le pasamo sel ancho de la ventana
+     * Metodo que genera la posicion x de la letra, le pasamos el ancho de la
+     * ventana
+     *
      * @param anchoV
-     * @return 
+     * @return
      */
-    private int generarAleatorio(int anchoV) {
-        return (int) Math.floor(Math.random() * anchoV);
-        
-    }
-    public boolean mover(){
-        if(comprobarPosicion()){
-            cambiarY();
-            return true;
-        }else{
-            return false;
-        }
+    private int generarXAleatoria(int anchoV) {
+        return (int) Math.floor(Math.random() * anchoV - ladoLetra);
+
     }
 
-
-
-    private boolean comprobarPosicion() {
-        if(x>altoV){
-            return false;
-        }else{
-            return true;
-        }
+    /**
+     * Actualiza la posicion y de la letra
+     */
+    public void mover() {
+        this.y += this.velocidad;
     }
-    
+
     public char getNombre() {
         return nombre;
     }
@@ -89,27 +86,34 @@ public class Letra {
     public int getY() {
         return y;
     }
-    
-
-    private void cambiarY() {
-        this.y+=this.velocidad;
-    }
 
     public int getX() {
         return x;
     }
 
-    
+    /**
+     * actualiza la velocidad de la letra
+     *
+     * @param velocidad
+     */
     public void setVelocidad(int velocidad) {
         this.velocidad = velocidad;
     }
-    
-    public void cambioDireccion(){
-        this.velocidad=-velocidad;
+
+    /**
+     * Establece un valor negativo para la velocidad de la letra
+     */
+    public void cambioDireccion() {
+        this.velocidad = -velocidad;
     }
-    
-    public static void eliminarChar(int letra){
-        System.out.println(letras.remove(letra));
+
+    /**
+     * Elimina del array estatico el caracter que se le pasa
+     *
+     * @param letra
+     */
+    public static void eliminarChar(int letra) {
+        letras.remove(letra);
     }
 
     public int getLadoLetra() {
@@ -119,7 +123,5 @@ public class Letra {
     public int getVelocidad() {
         return velocidad;
     }
-    
-    
-    
+
 }

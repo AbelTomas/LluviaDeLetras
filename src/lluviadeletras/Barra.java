@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lluvideletras;
+package lluviadeletras;
 
 import java.awt.Label;
 
@@ -41,12 +41,18 @@ public class Barra extends Label{
         return y;
     }
 
+    /**
+     * mueve la barra hacia la derecha comprobando que no se sale de la ventana
+     */
     public void moverDerecha() {
         if(x<(anchoV-anchoB)){
             this.x = x+5;
         }
         
     }
+    /**
+     * mueve la barra hacia la izquierda comprobando que no se sale de la ventana
+     */
     public void moverIzquierda() {
         if(x>0){
             this.x = x-5;
