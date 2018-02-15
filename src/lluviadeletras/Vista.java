@@ -31,7 +31,7 @@ public class Vista extends Frame {
     private int pos, anchoV = 500, altoV = 500;
     private Controlador c;
     private int numLetras;
-    private Barra b;
+    private Barra b,b2;
     private CheckboxMenuItem[] cbmi;
     private Label lblMarcador;
     private Label lblNivel;
@@ -40,10 +40,17 @@ public class Vista extends Frame {
     
     public Vista(Controlador c) {
         this.c = c;
-        b = new Barra(anchoV);
+        
+        b = new Barra(anchoV,450);
         b.setBackground(Color.red);
         b.setBounds(b.getX(), b.getY(), b.getAnchoB(), b.getAltoB());
+        
+        b2 = new Barra(anchoV,30);
+        b2.setBackground(Color.red);
+        b2.setBounds(b2.getX(), b2.getY(), b2.getAnchoB(), b2.getAltoB());
+        
         this.add(b);
+        this.add(b2);
         letras = new ArrayList();
         botones = new ArrayList();
         generarMenu();
@@ -132,6 +139,7 @@ public class Vista extends Frame {
             letras.get(i).mover();
             botones.get(i).setLocation(letras.get(i).getX(), letras.get(i).getY());
             b.setBounds(b.getX(), b.getY(), b.getAnchoB(), b.getAltoB());
+            b2.setBounds(b2.getX(), b2.getY(), b2.getAnchoB(), b2.getAltoB());
         }
         this.setVisible(true);
     }
@@ -178,7 +186,9 @@ public class Vista extends Frame {
     public void comprobarChoque() {
         for (int i = 0; i < letras.size(); i++) {
             if (letras.get(i).getVelocidad() < 0) {
-                c.comprobarSalida(letras.get(i).getX(), letras.get(i).getY());
+                if(!c.comprobarSalida(letras.get(i).getX(), letras.get(i).getY())){
+                    letras.get(i).cambioDireccion();
+                }
                 
             } else if (c.comprobarPos(letras.get(i).getX(), letras.get(i).getY())) {
                 System.out.println("CHOQUE");
@@ -194,6 +204,7 @@ public class Vista extends Frame {
      */
     public void moverDerechaBarra() {
         b.moverDerecha();
+        b2.moverDerecha();
         
     }
 
@@ -202,14 +213,21 @@ public class Vista extends Frame {
      */
     public void moverIzquierdaBarra() {
         b.moverIzquierda();
+        b2.moverIzquierda();
     }
 
     public int getXBarra() {
         return b.getX();
     }
+    public int getXBarra2() {
+        return b2.getX();
+    }
 
     public int getYBarra() {
         return b.getY();
+    }
+    public int getYBarra2() {
+        return b2.getY();
     }
 
     /**

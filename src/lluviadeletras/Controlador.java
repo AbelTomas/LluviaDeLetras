@@ -27,6 +27,8 @@ public class Controlador extends KeyAdapter implements ItemListener{
         m=new Modelo(this);
         m.setYBarra(v.getYBarra());
         m.setXBarra(v.getXBarra());
+        m.setYBarra2(v.getYBarra2());
+        m.setXBarra2(v.getXBarra2());
         generarLetras();
         mover();
     }
@@ -78,10 +80,12 @@ public class Controlador extends KeyAdapter implements ItemListener{
             case KeyEvent.VK_RIGHT:
                 v.moverDerechaBarra();
                 m.setXBarra(v.getXBarra());
+                m.setXBarra2(v.getXBarra2());
                 break;
             case KeyEvent.VK_LEFT:
                 v.moverIzquierdaBarra();
                 m.setXBarra(v.getXBarra());
+                m.setXBarra2(v.getXBarra2());
                 break;
             default:
                 System.out.println(Character.toUpperCase(e.getKeyChar()));
@@ -90,9 +94,12 @@ public class Controlador extends KeyAdapter implements ItemListener{
         }
         
     }
-    public void setXbarra(int x){
+    /*public void setXbarra(int x){
         m.setXBarra(x);
     }
+    public void setXbarra2(int x){
+        m.setXBarra2(x);
+    }*/
     public int getVelocidad(){
         return m.getVelocidad();
     }
@@ -109,8 +116,8 @@ public class Controlador extends KeyAdapter implements ItemListener{
      * @param x x de la letra que queremos comprobar
      * @param y y de la letra que queremos comprobar
      */
-    public void comprobarSalida(int x, int y) {
-        m.comprobarSalida(x, y);
+    public boolean comprobarSalida(int x, int y) {
+        return m.comprobarSalida(x, y);
     }
    /**
     * disminuye el marcador del modelo

@@ -13,10 +13,11 @@ import java.awt.Label;
  */
 public class Barra extends Label{
     private int anchoV,altoB,anchoB;
-    private int x, y = 450;
+    private int x, y;
 
     
-    public Barra(int anchoV){
+    public Barra(int anchoV,int y){
+        this.y=y;
         altoB=30;
         anchoB=50;
         this.anchoV=anchoV;
