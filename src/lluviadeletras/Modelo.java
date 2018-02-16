@@ -13,7 +13,7 @@ package lluviadeletras;
 public class Modelo {
     private Controlador c;
     private int marcador, velocidad=1, nivel=1, numLetras;
-    private int xbarra,ybarra,lado = 20, ladobarra=50;
+    private int xbarra,ybarra,xbarra2,ybarra2,lado = 20, ladobarra=50;
 
     
     public Modelo(Controlador c) {
@@ -52,16 +52,29 @@ public class Modelo {
     public void setYBarra(int y){
         ybarra=y;
     }
+    public void setXBarra2(int x){
+        xbarra2=x;
+    }
+    public void setYBarra2(int y){
+        ybarra2=y;
+    }
 
     /**
      * COmprueba si la letra se ha salido de la ventana por arriba
      * @param x
      * @param y
      */
-    public void comprobarSalida(int x, int y) {
-        if (y<0) {
+    public boolean comprobarSalida(int x, int y) {
+        //false si ha chocado y true si se ha salido
+        if (x>xbarra2 && x<(xbarra2+ladobarra) && y<ybarra2) {
+            System.out.println("choque con barra");
+            return false;
+        }else if(y<ybarra2){
             finJuego(2);
         }
+        System.out.println("no hay choque");
+        
+        return true;
     }
 
     /**
