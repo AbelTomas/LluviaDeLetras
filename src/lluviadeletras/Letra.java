@@ -116,7 +116,7 @@ public class Letra {
         letras.remove(letra);
     }
 
-    public int getLadoLetra() {
+    public static int getLadoLetra() {
         return ladoLetra;
     }
 

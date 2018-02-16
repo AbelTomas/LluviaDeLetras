@@ -169,4 +169,20 @@ public class Controlador extends KeyAdapter implements ItemListener{
         }
     }
 
+    public int getLadoBarra() {
+        return v.getLadoBarra();
+    }
+
+    public int getAltoBarra() {
+        return v.getAltoBarra();
+    }
+
+    public int getLado() {
+        return v.getLado();
+    }
+
+    public void cambiarPosicionBarras() {
+        v.cambiarPosicionBarras();
+    }
+
 }

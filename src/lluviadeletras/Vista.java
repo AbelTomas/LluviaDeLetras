@@ -25,14 +25,14 @@ import javax.swing.Timer;
  * @author Jose
  */
 public class Vista extends Frame {
-
+    
     private ArrayList<Letra> letras;
     private ArrayList<Label> botones;
     private Label btnLetra;
-    private int pos, anchoV = 500, altoV = 500;
+    private int anchoV = 500, altoV = 500;
     private Controlador c;
     private int numLetras;
-    private Barra b,b2;
+    private Barra b, b2;
     private CheckboxMenuItem[] cbmi;
     private Label lblMarcador;
     private Label lblNivel;
@@ -44,24 +44,22 @@ public class Vista extends Frame {
     public Vista(Controlador c) {
         this.c = c;
         
-        b = new Barra(anchoV,450);
+        b = new Barra(anchoV, 450);
         b.setBackground(Color.red);
         b.setBounds(b.getX(), b.getY(), b.getAnchoB(), b.getAltoB());
         
-        b2 = new Barra(anchoV,30);
+        b2 = new Barra(anchoV, 30);
         b2.setBackground(Color.red);
         b2.setBounds(b2.getX(), b2.getY(), b2.getAnchoB(), b2.getAltoB());
         
-        
-        
-        mensaje=new Label("Pulsa ENTER para continuar");
+        mensaje = new Label("Pulsa ENTER para continuar");
         mensaje.setBounds(200, 200, 160, 30);
         mensaje.setForeground(Color.white);
         mensaje.setBackground(Color.black);
         mensaje.setVisible(false);
         this.add(mensaje);
         
-        negro=new Panel();
+        negro = new Panel();
         negro.setBackground(Color.black);
         negro.setBounds(0, 0, anchoV, altoV);
         negro.setVisible(false);
@@ -171,7 +169,7 @@ public class Vista extends Frame {
     public void eliminarLetra(char caracter) {
         int i;
         for (i = 0; i < letras.size() && caracter != letras.get(i).getNombre(); i++);
-        System.out.println((int)caracter);
+        System.out.println((int) caracter);
         if (i == letras.size()) {
             if (caracter >= 65 && caracter <= 90) {
                 System.out.println("caracter:" + caracter);
@@ -204,7 +202,7 @@ public class Vista extends Frame {
     public void comprobarChoque() {
         for (int i = 0; i < letras.size(); i++) {
             if (letras.get(i).getVelocidad() < 0) {
-                if(!c.comprobarSalida(letras.get(i).getX(), letras.get(i).getY())){
+                if (!c.comprobarSalida(letras.get(i).getX(), letras.get(i).getY())) {
                     letras.get(i).cambioDireccion();
                 }
                 
@@ -221,29 +219,37 @@ public class Vista extends Frame {
      * Llama a mover derecha de la barra
      */
     public void moverDerechaBarra() {
-        b.moverDerecha();
-        b2.moverDerecha();
-        
+        if (b.getX() < anchoV-b.getAnchoB() && b2.getX() < anchoV-b2.getAnchoB()) {
+            System.out.println("mueve a la derecha");
+            b.moverDerecha();
+            b2.moverDerecha();
+        }
     }
 
     /**
      * Llama a mover izquierda de la barra
      */
     public void moverIzquierdaBarra() {
-        b.moverIzquierda();
-        b2.moverIzquierda();
+        if (b.getX() > 0 && b2.getX() > 0) {
+            System.out.println("mueve a la izquierda");
+            b.moverIzquierda();
+            b2.moverIzquierda();
+        }
+        
     }
-
+    
     public int getXBarra() {
         return b.getX();
     }
+
     public int getXBarra2() {
         return b2.getX();
     }
-
+    
     public int getYBarra() {
         return b.getY();
     }
+
     public int getYBarra2() {
         return b2.getY();
     }
@@ -298,17 +304,17 @@ public class Vista extends Frame {
             
         }
     }
-
-    private void ponerPanelNegro(){
+    
+    private void ponerPanelNegro() {
         negro.setVisible(true);
         mensaje.setVisible(true);
     }
     
-    public void quitarPanelNegro(){
+    public void quitarPanelNegro() {
         negro.setVisible(false);
         mensaje.setVisible(false);
     }
-    
+
     /**
      * Actualiza el label del marcador y actualiza el marcador del modelo
      */
@@ -338,5 +344,24 @@ public class Vista extends Frame {
             }
             
         }
+    }
+
+    public int getLado() {
+        return Letra.getLadoLetra();
+    }
+    
+    public int getAltoBarra() {
+        return b.getAltoB();
+    }
+    
+    public int getLadoBarra() {
+        return b.getAnchoB();
+    }
+    
+    public void cambiarPosicionBarras() {
+        b.setX(anchoV / 2 - b.getAnchoB());
+        b2.setX(anchoV / 2);
+        //  b.setBounds((anchoV/2-b.getAnchoB()), b.getY(), b.getAnchoB(), b.getAltoB());
+        // b2.setBounds((anchoV/2), b2.getY(), b2.getAnchoB(), b2.getAltoB());
     }
 }

@@ -12,12 +12,16 @@ package lluviadeletras;
  */
 public class Modelo {
     private Controlador c;
-    private int marcador, velocidad=1, nivel=1, numLetras;
-    private int xbarra,ybarra,xbarra2,ybarra2,lado = 20, ladobarra=50;
+    private int marcador, velocidad=1, nivel=1;
+    private int xbarra,ybarra,xbarra2,ybarra2,lado, ladobarra, altoBarra;
 
     
     public Modelo(Controlador c) {
         this.c=c;
+        ladobarra=c.getLadoBarra();
+        altoBarra=c.getAltoBarra();
+        lado=c.getLado();
+        System.out.println(altoBarra+" "+ladobarra);
         
     }
     
@@ -66,7 +70,9 @@ public class Modelo {
      */
     public boolean comprobarSalida(int x, int y) {
         //false si ha chocado y true si se ha salido
-        if (x>xbarra2 && x<(xbarra2+ladobarra) && y<ybarra2) {
+        System.out.println(altoBarra);
+        System.out.println(y<(ybarra2+altoBarra));
+        if (x>xbarra2 && x<(xbarra2+ladobarra) && y<(ybarra2+altoBarra)) {
             System.out.println("choque con barra");
             return false;
         }else if(y<ybarra2){
@@ -92,6 +98,9 @@ public class Modelo {
     public void cambiarNivel(int nivel){
         this.nivel=nivel;
         modifVelocidad();
+        if (nivel>=3) {
+            c.cambiarPosicionBarras();
+        }
         c.actualizarV(velocidad);
         c.finTime();
     }

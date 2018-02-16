@@ -11,19 +11,18 @@ import java.awt.Label;
  *
  * @author Jose
  */
-public class Barra extends Label{
-    private int anchoV,altoB,anchoB;
+public class Barra extends Label {
+
+    private int anchoV, altoB, anchoB;
     private int x, y;
 
-    
-    public Barra(int anchoV,int y){
-        this.y=y;
-        altoB=30;
-        anchoB=50;
-        this.anchoV=anchoV;
-        x=this.anchoV/2-anchoB/2;
+    public Barra(int anchoV, int y) {
+        this.y = y;
+        altoB = 30;
+        anchoB = 50;
+        this.anchoV = anchoV;
+        x = this.anchoV / 2 - anchoB / 2;
 
-        
     }
 
     public int getAltoB() {
@@ -32,6 +31,14 @@ public class Barra extends Label{
 
     public int getAnchoB() {
         return anchoB;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public int getX() {
@@ -46,19 +53,19 @@ public class Barra extends Label{
      * mueve la barra hacia la derecha comprobando que no se sale de la ventana
      */
     public void moverDerecha() {
-        if(x<(anchoV-anchoB)){
-            this.x = x+5;
-        }
-        
+
+        this.x = x + 5;
+
     }
+
     /**
-     * mueve la barra hacia la izquierda comprobando que no se sale de la ventana
+     * mueve la barra hacia la izquierda comprobando que no se sale de la
+     * ventana
      */
     public void moverIzquierda() {
-        if(x>0){
-            this.x = x-5;
-        }
-        
+
+        this.x = x - 5;
+
     }
-    
+
 }
