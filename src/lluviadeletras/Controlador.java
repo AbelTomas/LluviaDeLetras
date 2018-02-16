@@ -87,6 +87,10 @@ public class Controlador extends KeyAdapter implements ItemListener{
                 m.setXBarra(v.getXBarra());
                 m.setXBarra2(v.getXBarra2());
                 break;
+            case KeyEvent.VK_ENTER:
+                reanudar();
+                
+                break;
             default:
                 System.out.println(Character.toUpperCase(e.getKeyChar()));
                 v.eliminarLetra(Character.toUpperCase(e.getKeyChar()));
@@ -154,6 +158,15 @@ public class Controlador extends KeyAdapter implements ItemListener{
         v.cbmiTrue(e.getItem().toString());
         //m.cambiarNivel(Integer.parseInt(e.getItem().toString().split(" ")[1]));
         cambiarNivel(Integer.parseInt(e.getItem().toString().split(" ")[1]));
+    }
+
+    private void reanudar() {
+        System.out.println("enter");
+        if (!timer.isRunning()) {
+            v.quitarPanelNegro();
+            timer.start();
+            timer2.start();
+        }
     }
 
 }

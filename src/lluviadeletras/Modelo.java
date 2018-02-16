@@ -93,6 +93,7 @@ public class Modelo {
         this.nivel=nivel;
         modifVelocidad();
         c.actualizarV(velocidad);
+        c.finTime();
     }
     /**
      * Ajusta la velocidad de caida de la letra al nivel.

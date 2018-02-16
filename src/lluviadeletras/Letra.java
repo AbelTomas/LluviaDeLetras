@@ -68,7 +68,7 @@ public class Letra {
      * @return
      */
     private int generarXAleatoria(int anchoV) {
-        return (int) Math.floor(Math.random() * anchoV - ladoLetra);
+        return (int) Math.floor(Math.random() * ((anchoV-ladoLetra-10+1) + (10)));
 
     }
 

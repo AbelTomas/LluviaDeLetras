@@ -14,6 +14,7 @@ import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.MenuShortcut;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -26,8 +27,8 @@ import javax.swing.Timer;
 public class Vista extends Frame {
 
     private ArrayList<Letra> letras;
-    private ArrayList<Button> botones;
-    private Button btnLetra;
+    private ArrayList<Label> botones;
+    private Label btnLetra;
     private int pos, anchoV = 500, altoV = 500;
     private Controlador c;
     private int numLetras;
@@ -37,6 +38,8 @@ public class Vista extends Frame {
     private Label lblNivel;
     private int aciertos;
     private int nivel = 1;
+    private Panel negro;
+    private Label mensaje;
     
     public Vista(Controlador c) {
         this.c = c;
@@ -48,6 +51,21 @@ public class Vista extends Frame {
         b2 = new Barra(anchoV,30);
         b2.setBackground(Color.red);
         b2.setBounds(b2.getX(), b2.getY(), b2.getAnchoB(), b2.getAltoB());
+        
+        
+        
+        mensaje=new Label("Pulsa ENTER para continuar");
+        mensaje.setBounds(200, 200, 160, 30);
+        mensaje.setForeground(Color.white);
+        mensaje.setBackground(Color.black);
+        mensaje.setVisible(false);
+        this.add(mensaje);
+        
+        negro=new Panel();
+        negro.setBackground(Color.black);
+        negro.setBounds(0, 0, anchoV, altoV);
+        negro.setVisible(false);
+        this.add(negro);
         
         this.add(b);
         this.add(b2);
@@ -111,7 +129,7 @@ public class Vista extends Frame {
     public void generarLetras() {
         letras.add(new Letra(500, 500));
         
-        btnLetra = new Button("" + letras.get(numLetras).getNombre());
+        btnLetra = new Label("" + letras.get(numLetras).getNombre());
         btnLetra.setBounds(letras.get(numLetras).getX(), 0, letras.get(numLetras).getLadoLetra(), letras.get(numLetras).getLadoLetra());
         this.add(btnLetra);
         botones.add(btnLetra);
@@ -270,6 +288,7 @@ public class Vista extends Frame {
      * @param velocidad
      */
     public void actualizarVelocidad(int velocidad) {
+        ponerPanelNegro();
         for (int i = 0; i < letras.size(); i++) {
             if (letras.get(i).getVelocidad() >= 0) {
                 letras.get(i).setVelocidad(velocidad);
@@ -280,6 +299,16 @@ public class Vista extends Frame {
         }
     }
 
+    private void ponerPanelNegro(){
+        negro.setVisible(true);
+        mensaje.setVisible(true);
+    }
+    
+    public void quitarPanelNegro(){
+        negro.setVisible(false);
+        mensaje.setVisible(false);
+    }
+    
     /**
      * Actualiza el label del marcador y actualiza el marcador del modelo
      */
