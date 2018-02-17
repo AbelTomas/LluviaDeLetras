@@ -14,12 +14,12 @@ import java.util.ArrayList;
 public class Letra {
 
     private static final ArrayList letras = new ArrayList();
-    private static final int num1 = 65, num2 = 90;  //Numeros de los caracteres de las letras en mayusculas
+    private static final int num1 = 48, num2 = 91;  //Numeros de los caracteres de las letras en mayusculas
     private int altoV;
     private int x, y = 0;
     private char nombre;
     private int velocidad;
-    private static int ladoLetra = 20;
+    private static int ladoLetra = 15;
 
     public Letra(int anchoV, int altoV) {
         this.altoV = altoV;
@@ -40,7 +40,7 @@ public class Letra {
             //generamos la letra en mayusculas de forma aleatoria
             numAleatorio = (int) Math.floor(Math.random() * (num2 - num1) + num1);
             c = (char) numAleatorio;
-        } while (comprobarRepetida(c)); //Comprobamos si se repite
+        } while (comprobarRepetida(c) || c<65 && c>57); //Comprobamos si se repite
         letras.add(c);  //Añadimos la letra al array
         return c;
     }
@@ -68,7 +68,7 @@ public class Letra {
      * @return
      */
     private int generarXAleatoria(int anchoV) {
-        return (int) Math.floor(Math.random() * anchoV - ladoLetra);
+        return (int) Math.floor(Math.random() * ((anchoV-ladoLetra-10+1) + (10)));
 
     }
 
@@ -116,7 +116,7 @@ public class Letra {
         letras.remove(letra);
     }
 
-    public int getLadoLetra() {
+    public static int getLadoLetra() {
         return ladoLetra;
     }
 

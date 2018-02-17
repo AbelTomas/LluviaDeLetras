@@ -9,7 +9,7 @@ package lluviadeletras;
  *
  * @author Jose
  */
-public class LluviaDeLetras {
+public class LluviaLetras {
 
     /**
      * @param args the command line arguments

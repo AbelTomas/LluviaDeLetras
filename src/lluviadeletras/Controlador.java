@@ -5,6 +5,7 @@
  */
 package lluviadeletras;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -17,7 +18,7 @@ import javax.swing.Timer;
  *
  * @author Jose
  */
-public class Controlador extends KeyAdapter implements ItemListener{
+public class Controlador extends KeyAdapter implements ItemListener,ActionListener{
     private Timer timer,timer2;
     private Vista v;
     private Modelo m;
@@ -87,9 +88,12 @@ public class Controlador extends KeyAdapter implements ItemListener{
                 m.setXBarra(v.getXBarra());
                 m.setXBarra2(v.getXBarra2());
                 break;
+            case KeyEvent.VK_ENTER:
+                reanudar();
+                
+                break;
             default:
-                System.out.println(Character.toUpperCase(e.getKeyChar()));
-                v.eliminarLetra(Character.toUpperCase(e.getKeyChar()));
+                v.cambiarColor(Character.toUpperCase(e.getKeyChar()));
                 break;
         }
         
@@ -152,8 +156,48 @@ public class Controlador extends KeyAdapter implements ItemListener{
     public void itemStateChanged(ItemEvent e) {
         v.cbmiFalse();
         v.cbmiTrue(e.getItem().toString());
-        //m.cambiarNivel(Integer.parseInt(e.getItem().toString().split(" ")[1]));
         cambiarNivel(Integer.parseInt(e.getItem().toString().split(" ")[1]));
+    }
+
+    private void reanudar() {
+        System.out.println("enter");
+        if (!timer.isRunning()) {
+            v.quitarPanelNegro();
+            timer.start();
+            timer2.start();
+        }
+    }
+
+    public int getLadoBarra() {
+        return v.getLadoBarra();
+    }
+
+    public int getAltoBarra() {
+        return v.getAltoBarra();
+    }
+
+    public int getLado() {
+        return v.getLado();
+    }
+
+    public void cambiarPosicionBarras() {
+        v.cambiarPosicionBarras();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String it=e.getActionCommand();
+        switch(it){
+            case "Salir":
+                m.finJuego(0);
+                break;
+            case "Pausar":
+                finTime();
+                break;
+            case "Reanudar":
+                reanudar();
+                break;
+        }
     }
 
 }
